@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'authentication',
+    'prediction',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,12 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+UPLOAD_DIR = os.path.join(MEDIA_ROOT, 'uploads')
+MODEL_DIR = os.path.join(BASE_DIR, 'prediction', 'ml_model')
 
 # CORS Settings
 CORS_ALLOW_ALL_ORIGINS = True

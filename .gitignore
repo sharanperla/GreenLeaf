@@ -1,0 +1,65 @@
+# .gitignore file
+
+# SQLite database file
+db.sqlite3
+
+# Log files
+*.log
+
+data/ 
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtualenv
+.venv/
+env/
+venv/
+ENV/
+.Python
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+static/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# dotenv
+.env
+.env.*
+
+# coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# pip-tools
+*.txt~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# mypy
+.mypy_cache/
+
+# Other caches
+.cache/
