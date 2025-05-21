@@ -13,6 +13,8 @@ from django.core.files.base import ContentFile
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse
 
+
+
 from rest_framework import status, viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -155,13 +157,24 @@ class MakePredictionView(APIView):
             disease_name, confidence = predictions[0]
             other_predictions = predictions[1:]
 
+            # Fetch disease details from DB
+            plant_disease = get_object_or_404(PlantDisease, class_name=disease_name)
+
+            disease_details = {
+                'description': plant_disease.description,
+                'symptoms': plant_disease.symptoms,
+                'treatment': plant_disease.treatment,
+                'prevention': plant_disease.prevention,
+            }
+
             return Response({
                 'disease': disease_name,
                 'confidence': round(confidence * 100, 2),
                 'other_predictions': [
                     {'disease': name, 'confidence': round(conf * 100, 2)}
                     for name, conf in other_predictions
-                ]
+                ],
+                'details': disease_details
             })
 
         except Exception as e:

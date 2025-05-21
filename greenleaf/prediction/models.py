@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class PlantDisease(models.Model):
     name = models.CharField(max_length=255)
+    class_name = models.CharField(max_length=255, unique=True) 
     scientific_name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField()
     symptoms = models.TextField()

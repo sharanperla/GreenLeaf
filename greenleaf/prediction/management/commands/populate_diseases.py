@@ -19,6 +19,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        PlantDisease.objects.all().delete()
         model_dir = settings.MODEL_DIR
         metadata_path = options['metadata'] or os.path.join(model_dir, 'model_metadata.json')
         
@@ -172,7 +173,8 @@ class Command(BaseCommand):
             is_healthy = "healthy" in class_name.lower()
             
             # Get or create the disease object
-            disease, created = PlantDisease.objects.get_or_create(name=display_name)
+            disease, created = PlantDisease.objects.get_or_create(class_name=class_name, defaults={'name': display_name})
+
             
             # Get disease info (use default if not found)
             info = disease_info.get(class_name, disease_info['default'])
