@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-)t52zzza555h^24e1$pu-(1&d(tvz-qvmxlsx@)oqivp_(#$g4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '192.168.43.234'
+]
 
 
 # Application definition
@@ -43,7 +47,24 @@ INSTALLED_APPS = [
     'corsheaders',
     'authentication',
     'prediction',
+    'channels',  # Add this
+    'community_chat',  # Add this
 ]
+ASGI_APPLICATION = 'greenleaf.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CHAT_ATTACHMENT_ROOT = os.path.join(MEDIA_ROOT, 'chat_attachments')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
