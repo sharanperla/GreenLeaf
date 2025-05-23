@@ -13,6 +13,7 @@ class PlantDisease(models.Model):
     image = models.ImageField(upload_to='disease_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    image_url= models.TextField()
 
     def __str__(self):
         return self.name

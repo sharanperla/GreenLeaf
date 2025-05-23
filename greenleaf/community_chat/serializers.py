@@ -10,6 +10,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ChatMessageSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    image = serializers.ImageField(read_only=True, use_url=True)
+
     
     class Meta:
         model = ChatMessage

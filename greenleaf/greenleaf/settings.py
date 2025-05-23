@@ -29,7 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '192.168.43.234'
+    '192.168.43.234',
+    '192.168.246.184',
 ]
 
 
@@ -54,10 +55,11 @@ ASGI_APPLICATION = 'greenleaf.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],
-        },
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        # 'CONFIG': {
+        #     'hosts': [('127.0.0.1', 6379)],
+        # },
     },
 }
 
