@@ -18,7 +18,7 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     def messages(self, request, pk=None):
         room = self.get_object()
         messages = room.messages.all().order_by('-created_at')[:100]
-        serializer = ChatMessageSerializer(messages, many=True)
+        serializer = ChatMessageSerializer(messages, many=True, context={'request': request})
         return Response(serializer.data)
 
 class ChatMessageViewSet(viewsets.ModelViewSet):
@@ -66,10 +66,10 @@ class ChatMessageViewSet(viewsets.ModelViewSet):
                 'type': 'chat_message',
                 'message': message.content or '',
                 'username': request.user.username,
-                'image_url': request.build_absolute_uri(message.image.url) if message.image else None,
+                'image_url': message.image and request.build_absolute_uri(message.image.url),
                 'created_at': message.created_at.isoformat(),
             }
         )
 
-        serializer = ChatMessageSerializer(message)
+        serializer = ChatMessageSerializer(message, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
